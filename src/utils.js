@@ -68,14 +68,6 @@ function toRgba (color) {
 }
 
 function defaultCustomPropValueTransformer (keys, value) {
-  if (colorConfigKeys.includes(keys[0])) {
-    const color = toRgba(value)
-    if (!hasAlpha(value) && color) {
-      const [ r, g, b ] = color
-      return `${r} ${g} ${b}`
-    }
-  }
-
   return value
 }
 
