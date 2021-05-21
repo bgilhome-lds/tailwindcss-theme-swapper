@@ -47,7 +47,7 @@ function flatten (
 }
 
 const getTailwindKeyName = keys =>
-  keys.filter(key => key.toLowerCase() !== 'default').map(kebabCase).join('-')
+  kebabCase(keys.pop().toLowerCase());
 
 function hasAlpha (color) {
   return (
