@@ -5,25 +5,25 @@ const defaultOptions = {
   themes: [],
 }
 
-const themeSwap = (options = defaultOptions) => ({ addBase }) => {
+const themeSwap = (options = defaultOptions) => ({ addBase, addUtilities }) => {
   const { themes } = options
 
   themes.forEach(themeConfig => {
     const { theme, mediaQuery, selectors = [] } = themeConfig
+    const styles = {};
 
     if (selectors.length > 0) {
-      addBase({
-        [selectors.join(', ')]: getThemeAsCustomVars(theme)
-      })
+      styles[selectors.join(', ')] = getThemeAsCustomVars(theme);
     }
 
     if (mediaQuery) {
-      addBase({
-        [mediaQuery]: {
-          ':root': getThemeAsCustomVars(theme),
-        }
-      })
+      styles[mediaQuery] = {
+        ':root': getThemeAsCustomVars(theme),
+      };
     }
+
+    addBase(styles);
+    addUtilities(styles);
   })
 }
 
